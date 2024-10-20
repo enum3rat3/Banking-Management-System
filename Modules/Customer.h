@@ -154,6 +154,10 @@ label1:
                                 printf("%d logged out!\n", accountNumber);
                                 logout(connectionFD, accountNumber);
                                 return;
+                            case 10:
+                                // Exit
+                                printf("Customer: %d Exited!\n", accountNumber);
+                                exitClient(connectionFD, accountNumber);
                             default:
                                 bzero(readBuffer, sizeof(readBuffer));
                                 printf("Invalid input for customer menu\n");
