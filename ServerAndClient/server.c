@@ -167,8 +167,10 @@ void connectionHandler(int connectionFileDescriptor)
                         return;
 
                     default:
-                        printf("Invalid choice! Please try again.\n");
-                        break;
+                        bzero(readBuffer, sizeof(readBuffer));
+                        printf("Invalid Input for login menu\n");
+                        write(connectionFileDescriptor, "Invalid Choice for Login menu^", sizeof("Invalid Choice for Login menu^"));
+                        read(connectionFileDescriptor, readBuffer, sizeof(readBuffer));                                
                 }
             }
         }

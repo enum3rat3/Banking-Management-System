@@ -155,7 +155,10 @@ label1:
                                 logout(connectionFD, accountNumber);
                                 return;
                             default:
-                                write(connectionFD, "Invalid Choice from customer menu\n", sizeof("Invalid Choice from customer menu\n"));                                
+                                bzero(readBuffer, sizeof(readBuffer));
+                                printf("Invalid input for customer menu\n");
+                                write(connectionFD, "Invalid Choice for customer menu^", sizeof("Invalid Choice for customer menu^"));
+                                read(connectionFD, readBuffer, sizeof(readBuffer));                                
                         }
                     }
                 }

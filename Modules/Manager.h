@@ -98,7 +98,10 @@ label1:
                     exitClient(connectionFD, mngID);
                     return;
                 default:
-                    printf("Invalid choice\n");
+                    bzero(readBuffer, sizeof(readBuffer));
+                    printf("Invalid Input for manager menu\n");
+                    write(connectionFD, "Invalid Choice for Manager menu^", sizeof("Invalid Choice for Manager menu^"));
+                    read(connectionFD, readBuffer, sizeof(readBuffer));                                
             }
         }
     }

@@ -113,7 +113,11 @@ label1:
                     printf("Employee ID: %d Exited!\n", empID);
                     exitClient(connectionFD, empID);
                 default:
-                    printf("Invalid choice\n");                
+                    bzero(readBuffer, sizeof(readBuffer));
+                    printf("Invalid input for employee menu\n");
+                    write(connectionFD, "Invalid Choice for Employee menu^", sizeof("Invalid Choice for Employee menu^"));
+                    read(connectionFD, readBuffer, sizeof(readBuffer));                                
+              
             }
         }
     }
