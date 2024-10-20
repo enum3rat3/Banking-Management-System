@@ -561,6 +561,17 @@ void transferFunds(int connectionFD, int sourceAccount, int destAccount, float a
             break;
     }
 
+    if(dstOffset == -1)
+    {
+        bzero(writeBuffer, sizeof(writeBuffer));
+        bzero(readBuffer, sizeof(readBuffer));
+        printf("Account dosen't Exists\n");
+        strcpy(writeBuffer, "Account dosen't Exists!^");
+        write(connectionFD, writeBuffer, sizeof(writeBuffer));
+        read(connectionFD, readBuffer, sizeof(readBuffer));
+        return;        
+    }
+
     struct flock fl1 = {F_WRLCK, SEEK_SET, srcOffset, sizeof(struct Customer), getpid()};
     fcntl(file, F_SETLKW, &fl1);
 
