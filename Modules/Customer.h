@@ -138,7 +138,8 @@ label1:
                                     strcpy(writeBuffer, "Password changed successfully^");
                                     write(connectionFD, writeBuffer, sizeof(writeBuffer));
                                     read(connectionFD, readBuffer, sizeof(readBuffer));                                   
-                                }                                    
+                                } 
+                                logout(connectionFD, accountNumber);                                   
                                 goto label1;
                             case 7:
                                 // View Transaction
@@ -763,27 +764,6 @@ int changePassword(int connectionFD, int accountNumber){
 
 // ======================= Logout =======================
 void logout(int connectionFD, int id){
-
-    // struct session s;
-
-    // int fd = open("../Data/temp.txt", O_CREAT | O_RDWR, 0644);
-    // int fd1 = open("../Data/login.txt", O_RDONLY);
-
-    // lseek(fd, 0, SEEK_SET);
-    // lseek(fd1, 0, SEEK_SET);
-    // while (read(fd1, &s, sizeof(s)) != 0)
-    // {
-    //     if(s.id != id)
-    //     {
-    //         write(fd, &s, sizeof(s));
-    //     }
-    // }
-    
-    // close(fd);
-    // close(fd1);
-    // remove("../Data/login.txt");
-    // rename("../Data/temp.txt", "../Data/login.txt");
-
     snprintf(semName, 50, "/sem_%d", id);
 
     sem_t *sema = sem_open(semName, 0);
@@ -800,29 +780,3 @@ void logout(int connectionFD, int id){
     bzero(readBuffer, sizeof(readBuffer));
     read(connectionFD, readBuffer, sizeof(readBuffer));
 }
-
-// ======================= Session Check ==================
-// int sessionCheck(int id)
-// {
-//     struct session s;
-//     int fd = open("../Data/login.txt", O_CREAT | O_RDWR, 0644);
-//     if(fd == -1)
-//     {
-//         printf("Unable to open login.txt file\n");
-//         return 0;
-//     }
-
-//     while (read(fd, &s, sizeof(s)) != 0)
-//     {
-//         if(s.id == id)
-//         {
-//             close(fd);
-//             return 0;
-//         }
-//     }
-//     lseek(fd, 0, SEEK_END);
-//     s.id = id;
-//     write(fd, &s, sizeof(s));
-//     close(fd);
-//     return 1;
-// }

@@ -84,7 +84,8 @@ label1:
                         strcpy(writeBuffer,"Password changed successfully\nLogin with new password...\n^");
                         write(connectionFD, writeBuffer, sizeof(writeBuffer));
                         read(connectionFD, readBuffer, sizeof(readBuffer));
-                    }                                
+                    }   
+                    logout(connectionFD, mngID);                                                                
                     goto label1;
                 case 5:
                     // Logout
